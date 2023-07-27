@@ -28,6 +28,10 @@ public class UserRepository {
         return user;
     }
 
+    public static void delete(Long id) {
+
+    }
+
     public static List<User> getEntities() {
         return entities;
     }

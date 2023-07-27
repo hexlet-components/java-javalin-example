@@ -1,3 +1,6 @@
+@import org.example.hexlet.data.MainPage
+@param MainPage page
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,6 +13,9 @@
       <main>
         <h1 class="text-body-emphasis">Привет Хекслет!</h1>
         <p>Javalin + jte</p>
+        @if(!page.visited())
+          Это сообщение показывается только один раз. Если вы хотите увидеть его снова, сотрите куки
+        @endif
       </main>
     </div>
   </body>

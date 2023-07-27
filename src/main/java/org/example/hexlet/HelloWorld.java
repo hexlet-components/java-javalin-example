@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.example.hexlet.controllers.PostsController;
+import org.example.hexlet.controllers.UsersController;
 import org.example.hexlet.data.CoursesPage;
+import org.example.hexlet.data.MainPage;
 import org.example.hexlet.data.NewUserPage;
 import org.example.hexlet.data.UsersPage;
 import org.example.hexlet.domain.Course;
@@ -29,6 +31,14 @@ public class HelloWorld {
             ctx.contentType("text/html; charset=utf-8");
         });
 
+        // app.get("/users", UsersController::index);
+        // app.get("/users/{id}", UsersController::show);
+        // app.get("/users/new", UsersController::build);
+        // app.post("/users", UsersController::create);
+        // app.get("/users/{id}/edit", UsersController::edit);
+        // app.patch("/users/{id}", UsersController::update);
+        // app.delete("/users", UsersController::destroy);
+
         app.get("/posts", PostsController::index);
         app.get("/posts/{id}", PostsController::show);
         app.get("/posts/new", PostsController::build);
@@ -37,15 +47,20 @@ public class HelloWorld {
         app.patch("/posts/{id}", PostsController::update);
         app.delete("/posts", PostsController::destroy);
 
-        app.get("/", ctx -> ctx.render("index.jte"));
+        app.get("/", ctx -> {
+            var visited = Boolean.valueOf(ctx.cookie("visited"));
+            var page = new MainPage(visited);
+            ctx.render("index.jte", Collections.singletonMap("page", page));
+            ctx.cookie("visited", String.valueOf(true));
+        });
 
         app.get("/courses/new", ctx -> {
             ctx.render("courses/new.jte");
         });
 
-        app.get(NamedRoutes.newUserPath(), ctx -> {
-            ctx.render("users/new.jte");
-        });
+        // app.get(NamedRoutes.newUserPath(), ctx -> {
+        //     ctx.render("users/new.jte");
+        // });
 
         app.get(NamedRoutes.coursePath("{id}"), ctx -> {
             ctx.render("users/show.jte");
@@ -88,6 +103,7 @@ public class HelloWorld {
                 courses = CourseRepository.getEntities();
             }
             var page = new CoursesPage(courses, term);
+
             ctx.render("courses/index.jte", Collections.singletonMap("page", page));
         });
 
