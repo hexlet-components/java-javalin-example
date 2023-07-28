@@ -16,6 +16,9 @@
         @if(!page.visited())
           Это сообщение показывается только один раз. Если вы хотите увидеть его снова, сотрите куки
         @endif
+        @if(page.currentUser() != null)
+          Добро пожаловать, ${page.currentUser()}. Чтобы разлогиниться, удалите куку JSESSIONID из браузера
+        @endif
       </main>
     </div>
   </body>

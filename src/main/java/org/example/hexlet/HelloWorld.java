@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.example.hexlet.controllers.PostsController;
-import org.example.hexlet.controllers.UsersController;
+import org.example.hexlet.controllers.SessionsController;
 import org.example.hexlet.data.CoursesPage;
 import org.example.hexlet.data.MainPage;
 import org.example.hexlet.data.NewUserPage;
@@ -39,6 +39,10 @@ public class HelloWorld {
         // app.patch("/users/{id}", UsersController::update);
         // app.delete("/users", UsersController::destroy);
 
+        app.get("/sessions/build", SessionsController::build);
+        app.post("/sessions", SessionsController::create);
+        app.delete("/sessions", SessionsController::destroy);
+
         app.get("/posts", PostsController::index);
         app.get("/posts/{id}", PostsController::show);
         app.get("/posts/new", PostsController::build);
@@ -49,7 +53,7 @@ public class HelloWorld {
 
         app.get("/", ctx -> {
             var visited = Boolean.valueOf(ctx.cookie("visited"));
-            var page = new MainPage(visited);
+            var page = new MainPage(visited, ctx.sessionAttribute("currentUser"));
             ctx.render("index.jte", Collections.singletonMap("page", page));
             ctx.cookie("visited", String.valueOf(true));
         });
