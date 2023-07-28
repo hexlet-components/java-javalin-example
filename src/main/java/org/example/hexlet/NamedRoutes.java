@@ -5,12 +5,15 @@ package org.example.hexlet;
  */
 public class NamedRoutes {
 
+    public static String sessionsPath() {
+        return "/sessions";
+    }
     public static String usersPath() {
         return "/users";
     }
 
-    public static String newUserPath() {
-        return "/users/new";
+    public static String buildUserPath() {
+        return "/users/build";
     }
 
     public static String coursesPath() {
