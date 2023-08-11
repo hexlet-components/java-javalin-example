@@ -1,9 +1,9 @@
-package org.example.hexlet.lib;
+package org.example.hexlet.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.hexlet.domain.Course;
+import org.example.hexlet.model.Course;
 
 public class CourseRepository {
     private static List<Course> entities = new ArrayList<Course>();

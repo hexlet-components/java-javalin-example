@@ -1,4 +1,4 @@
-package org.example.hexlet.domain;
+package org.example.hexlet.model;
 
 public final class User {
     private Long id;

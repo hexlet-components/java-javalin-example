@@ -1,4 +1,4 @@
-package org.example.hexlet.data;
+package org.example.hexlet.dto;
 
 import io.javalin.validation.ValidationException;
 

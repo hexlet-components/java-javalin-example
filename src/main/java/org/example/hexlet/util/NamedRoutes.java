@@ -1,4 +1,4 @@
-package org.example.hexlet;
+package org.example.hexlet.util;
 
 /**
  * NamedRoutes

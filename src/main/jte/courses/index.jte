@@ -1,5 +1,5 @@
 @import org.example.hexlet.NamedRoutes
-@import org.example.hexlet.data.CoursesPage
+@import org.example.hexlet.dto.CoursesPage
 @param CoursesPage page
 
 <html>

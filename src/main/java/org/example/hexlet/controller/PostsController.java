@@ -1,12 +1,12 @@
-package org.example.hexlet.controllers;
+package org.example.hexlet.controller;
 
 import java.util.Collections;
 
-import org.example.hexlet.NamedRoutes;
-import org.example.hexlet.data.posts.PostPage;
-import org.example.hexlet.data.posts.PostsPage;
-import org.example.hexlet.domain.Post;
-import org.example.hexlet.lib.PostRepository;
+import org.example.hexlet.dto.posts.PostPage;
+import org.example.hexlet.dto.posts.PostsPage;
+import org.example.hexlet.model.Post;
+import org.example.hexlet.repository.PostRepository;
+import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 

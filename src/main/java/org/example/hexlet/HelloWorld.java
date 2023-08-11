@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.example.hexlet.controllers.PostsController;
-import org.example.hexlet.controllers.SessionsController;
-import org.example.hexlet.data.CoursesPage;
-import org.example.hexlet.data.MainPage;
-import org.example.hexlet.data.NewUserPage;
-import org.example.hexlet.data.UsersPage;
-import org.example.hexlet.domain.Course;
-import org.example.hexlet.domain.User;
-import org.example.hexlet.lib.CourseRepository;
-import org.example.hexlet.lib.UserRepository;
+import org.example.hexlet.controller.PostsController;
+import org.example.hexlet.controller.SessionsController;
+import org.example.hexlet.dto.CoursesPage;
+import org.example.hexlet.dto.MainPage;
+import org.example.hexlet.dto.NewUserPage;
+import org.example.hexlet.dto.UsersPage;
+import org.example.hexlet.model.Course;
+import org.example.hexlet.model.User;
+import org.example.hexlet.repository.CourseRepository;
+import org.example.hexlet.repository.UserRepository;
+import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.Javalin;
 // import io.javalin.rendering.template.JavalinJte;
@@ -30,14 +31,6 @@ public class HelloWorld {
         app.before(ctx -> {
             ctx.contentType("text/html; charset=utf-8");
         });
-
-        // app.get("/users", UsersController::index);
-        // app.get("/users/{id}", UsersController::show);
-        // app.get("/users/new", UsersController::build);
-        // app.post("/users", UsersController::create);
-        // app.get("/users/{id}/edit", UsersController::edit);
-        // app.patch("/users/{id}", UsersController::update);
-        // app.delete("/users", UsersController::destroy);
 
         app.get("/sessions/build", SessionsController::build);
         app.post("/sessions", SessionsController::create);
@@ -61,10 +54,6 @@ public class HelloWorld {
         app.get("/courses/new", ctx -> {
             ctx.render("courses/new.jte");
         });
-
-        // app.get(NamedRoutes.newUserPath(), ctx -> {
-        //     ctx.render("users/new.jte");
-        // });
 
         app.get(NamedRoutes.coursePath("{id}"), ctx -> {
             ctx.render("users/show.jte");

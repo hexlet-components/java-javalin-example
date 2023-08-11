@@ -1,4 +1,4 @@
-@import org.example.hexlet.data.UsersPage
+@import org.example.hexlet.dto.UsersPage
 @param UsersPage page
 
 HELLO JTE

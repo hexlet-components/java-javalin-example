@@ -1,4 +1,4 @@
-@import org.example.hexlet.data.NewUserPage
+@import org.example.hexlet.dto.NewUserPage
 @param NewUserPage page
 
 @if(page.e() != null)

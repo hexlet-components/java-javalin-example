@@ -1,12 +1,12 @@
-package org.example.hexlet.controllers;
+package org.example.hexlet.controller;
 
 import java.util.Collections;
 
-import org.example.hexlet.NamedRoutes;
-import org.example.hexlet.data.users.UserPage;
-import org.example.hexlet.data.users.UsersPage;
-import org.example.hexlet.domain.User;
-import org.example.hexlet.lib.UserRepository;
+import org.example.hexlet.dto.users.UserPage;
+import org.example.hexlet.dto.users.UsersPage;
+import org.example.hexlet.model.User;
+import org.example.hexlet.repository.UserRepository;
+import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 
