@@ -1,5 +1,5 @@
 check-deps:
 	./gradlew dependencyUpdates -Drevision=release
 
-run:
+dev:
 	./gradlew run

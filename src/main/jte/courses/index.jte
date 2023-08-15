@@ -1,15 +1,13 @@
-@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.util.NamedRoutes
 @import org.example.hexlet.dto.CoursesPage
 @param CoursesPage page
 
-<html>
-    <head>
-        <title>Хекслет</title>
-    </head>
-    <body>
-        <h1>Список Курсов</h1>
+@template.layout.page(
+    content = @`
+        <h1>Courses List</h1>
+        <a href="${NamedRoutes.buildCoursePath()}">New Course</a>
         @if(page.courses().isEmpty())
-            <p>Пока не добавлено ни одного курса</p>
+            <p>Courses list is empty</p>
         @else
             @for(var course : page.courses())
                <div>
@@ -18,5 +16,5 @@
                </div>
             @endfor
         @endif
-    </body>
-</html>
+    `
+)

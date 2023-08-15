@@ -51,11 +51,11 @@ public class HelloWorld {
             ctx.cookie("visited", String.valueOf(true));
         });
 
-        app.get("/courses/new", ctx -> {
-            ctx.render("courses/new.jte");
+        app.get(NamedRoutes.buildUserPath(), ctx -> {
+            ctx.render("users/build.jte");
         });
 
-        app.get(NamedRoutes.coursePath("{id}"), ctx -> {
+        app.get(NamedRoutes.userPath("{id}"), ctx -> {
             ctx.render("users/show.jte");
         });
 
@@ -75,18 +75,22 @@ public class HelloWorld {
                 ctx.redirect("/users");
             } catch (ValidationException e) {
                 var page = new NewUserPage(name, email, e);
-                ctx.render("users/new.jte", Collections.singletonMap("page", page));
+                ctx.render("users/build.jte", Collections.singletonMap("page", page));
             }
         });
 
-        app.get("/users", ctx -> {
+        app.get(NamedRoutes.usersPath(), ctx -> {
             var users = new String[] { "ivan", "peter" };
             var page = new UsersPage(users);
             // Отдаем обратно url + query params
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
         });
 
-        app.get("/courses", ctx -> {
+        app.get(NamedRoutes.buildCoursePath(), ctx -> {
+            ctx.render("courses/build.jte");
+        });
+
+        app.get(NamedRoutes.coursesPath(), ctx -> {
             var term = ctx.queryParam("term");
             List<Course> courses;
             if (term != null) {
@@ -100,13 +104,13 @@ public class HelloWorld {
             ctx.render("courses/index.jte", Collections.singletonMap("page", page));
         });
 
-        app.post("/courses", ctx -> {
+        app.post(NamedRoutes.coursesPath(), ctx -> {
             var name = ctx.formParam("name");
             var description = ctx.formParam("description");
 
             var course = new Course(name, description);
             CourseRepository.save(course);
-            ctx.redirect("/courses");
+            ctx.redirect(NamedRoutes.coursesPath());
         });
 
         app.start(7070);
