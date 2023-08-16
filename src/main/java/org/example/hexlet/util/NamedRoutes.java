@@ -1,7 +1,7 @@
 package org.example.hexlet.util;
 
 /**
- * NamedRoutes
+ * NamedRoutes.
  */
 public class NamedRoutes {
 

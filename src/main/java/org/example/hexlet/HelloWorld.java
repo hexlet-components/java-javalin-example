@@ -80,7 +80,7 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.usersPath(), ctx -> {
-            var users = new String[] { "ivan", "peter" };
+            var users = new String[] {"ivan", "peter"};
             var page = new UsersPage(users);
             // Отдаем обратно url + query params
             ctx.render("users/index.jte", Collections.singletonMap("page", page));

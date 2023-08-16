@@ -11,7 +11,7 @@ import org.example.hexlet.util.NamedRoutes;
 import io.javalin.http.Context;
 
 /**
- * BlogController
+ * UsersController.
  */
 public class UsersController {
     public static void index(Context ctx) {
