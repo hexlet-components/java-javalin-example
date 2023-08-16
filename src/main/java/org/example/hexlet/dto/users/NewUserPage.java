@@ -1,4 +1,4 @@
-package org.example.hexlet.dto;
+package org.example.hexlet.dto.users;
 
 import java.util.List;
 import java.util.Map;
