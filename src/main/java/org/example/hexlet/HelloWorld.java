@@ -67,7 +67,7 @@ public class HelloWorld {
             try {
                 var passwordConfirmation = ctx.formParam("passwordConfirmation");
                 var password = ctx.formParamAsClass("password", String.class)
-                        .check(value -> value == passwordConfirmation, "Passwords are not the same")
+                        .check(value -> value.equals(passwordConfirmation), "Passwords are not the same")
                         .check(value -> value.length() > 6, "Password is to short")
                         .get();
                 var user = new User(name, email, password);
