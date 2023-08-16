@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.example.hexlet.model.User;
 
-public record UsersPage(List<User> users) {
-}
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
+public class UsersPage {
+    public List<User> users;
+}

@@ -1,4 +1,8 @@
 package org.example.hexlet.dto;
 
-public record UsersPage(String[] users) {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class UsersPage {
+    public String[] users;
 }

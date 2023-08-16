@@ -2,6 +2,10 @@ package org.example.hexlet.dto.users;
 
 import org.example.hexlet.model.User;
 
-public record UserPage(User user) {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class UserPage {
+    public User user;
 }
 

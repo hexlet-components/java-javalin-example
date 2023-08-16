@@ -1,5 +1,9 @@
 package org.example.hexlet.dto;
 
-public record MainPage(Boolean visited, String currentUser) {
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
+public class MainPage {
+    public Boolean visited;
+    public String currentUser;
 }

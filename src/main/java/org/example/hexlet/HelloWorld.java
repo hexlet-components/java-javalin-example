@@ -52,7 +52,8 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.buildUserPath(), ctx -> {
-            ctx.render("users/build.jte");
+            var page = new NewUserPage("", "", null);
+            ctx.render("users/build.jte", Collections.singletonMap("page", page));
         });
 
         app.get(NamedRoutes.userPath("{id}"), ctx -> {
@@ -61,18 +62,17 @@ public class HelloWorld {
 
         app.post(NamedRoutes.usersPath(), ctx -> {
             var name = ctx.formParam("name").trim();
-            var email = ctx.formParam("email").toLowerCase();
+            var email = ctx.formParam("email").trim().toLowerCase();
 
             try {
-                // var password = ctx.formParam("password");
                 var passwordConfirmation = ctx.formParam("passwordConfirmation");
                 var password = ctx.formParamAsClass("password", String.class)
-                        .check(value -> value == passwordConfirmation, "Пароли не совпадают")
-                        .check(value -> value.length() > 6, "У пароля недостаточная длина")
+                        .check(value -> value == passwordConfirmation, "Passwords are not the same")
+                        .check(value -> value.length() > 6, "Password is to short")
                         .get();
                 var user = new User(name, email, password);
                 UserRepository.save(user);
-                ctx.redirect("/users");
+                ctx.redirect(NamedRoutes.usersPath());
             } catch (ValidationException e) {
                 var page = new NewUserPage(name, email, e);
                 ctx.render("users/build.jte", Collections.singletonMap("page", page));

@@ -4,5 +4,10 @@ import java.util.List;
 
 import org.example.hexlet.model.Course;
 
-public record CoursesPage(List<Course> courses, String term) {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class CoursesPage {
+    public List<Course> courses;
+    public String term;
 }

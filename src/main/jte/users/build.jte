@@ -3,9 +3,9 @@
 
 @template.layout.page(
     content = @`
-        @if(page.e() != null)
+        @if(page.e != null)
             <ul>
-                @for(var validator : page.e().getErrors().values())
+                @for(var validator : page.e.getErrors().values())
                     @for(var error : validator)
                         <li>${error.getMessage()}</li>
                     @endfor
@@ -16,29 +16,29 @@
         <form action="/users" method="post">
             <div>
                 <label>
-                Имя
-                <input type="text" name="name" value="${page.name()}" />
+                Name
+                <input type="text" name="name" value="${page.name}" />
                 </label>
             </div>
             <div>
                 <label>
                 Email
-                <input type="email" required name="email" value="${page.email()}" />
+                <input type="email" required name="email" value="${page.email}" />
                 </label>
             </div>
             <div>
                 <label>
-                Пароль
+                Password
                 <input type="password" required name="password" />
                 </label>
             </div>
             <div>
                 <label>
-                Подтверждение пароля
+                Password Confirmation
                 <input type="password" required name="passwordConfirmation" />
                 </label>
             </div>
-            <input type="submit" value="Зарегистрировать" />
+            <input type="submit" value="Sign Up" />
         </form>
     `
 )
