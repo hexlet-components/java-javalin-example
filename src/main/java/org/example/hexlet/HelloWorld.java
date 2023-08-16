@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
-import org.example.hexlet.dto.CoursesPage;
 import org.example.hexlet.dto.MainPage;
-import org.example.hexlet.dto.NewUserPage;
 import org.example.hexlet.dto.UsersPage;
+import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.users.NewUserPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.CourseRepository;
