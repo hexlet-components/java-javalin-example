@@ -21,6 +21,12 @@ import io.javalin.Javalin;
 import io.javalin.validation.ValidationException;
 
 public class HelloWorld {
+
+    private static int getPort() {
+        String port = System.getenv().getOrDefault("PORT", "7070");
+        return Integer.valueOf(port);
+    }
+
     public static void main(String[] args) {
         // JavalinJte.init();
 
@@ -113,6 +119,6 @@ public class HelloWorld {
             ctx.redirect(NamedRoutes.coursesPath());
         });
 
-        app.start(7070);
+        app.start(getPort());
     }
 }
