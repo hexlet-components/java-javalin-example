@@ -52,7 +52,7 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.buildUserPath(), ctx -> {
-            var page = new NewUserPage("", "", null);
+            var page = new NewUserPage();
             ctx.render("users/build.jte", Collections.singletonMap("page", page));
         });
 
@@ -74,7 +74,7 @@ public class HelloWorld {
                 UserRepository.save(user);
                 ctx.redirect(NamedRoutes.usersPath());
             } catch (ValidationException e) {
-                var page = new NewUserPage(name, email, e);
+                var page = new NewUserPage(name, email, e.getErrors());
                 ctx.render("users/build.jte", Collections.singletonMap("page", page));
             }
         });

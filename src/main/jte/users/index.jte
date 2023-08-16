@@ -5,8 +5,8 @@
 @template.layout.page(
     content = @`
         <a href="${NamedRoutes.buildUserPath()}">New User</a>
-        @for(var entry : page.users)
-            <div>${entry}</div>
+        @for(var user : page.getUsers())
+            <div>${user}</div>
         @endfor
     `
 )

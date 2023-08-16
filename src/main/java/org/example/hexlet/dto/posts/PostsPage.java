@@ -5,8 +5,10 @@ import java.util.List;
 import org.example.hexlet.model.Post;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class PostsPage {
     public List<Post> posts;
 }

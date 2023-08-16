@@ -6,10 +6,10 @@
     content = @`
         <h1>Courses List</h1>
         <a href="${NamedRoutes.buildCoursePath()}">New Course</a>
-        @if(page.courses.isEmpty())
+        @if(page.getCourses().isEmpty())
             <p>Courses list is empty</p>
         @else
-            @for(var course : page.courses)
+            @for(var course : page.getCourses())
                <div>
                    <h2><a href="${NamedRoutes.coursePath(course.getId())}">${course.getName()}</a></h2>
                    <p>${course.getDescription()}</p>
