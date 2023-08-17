@@ -1,6 +1,6 @@
 # Javalin example app
 
-[![Build](https://github.com/hexlet-components/java-spring-blog/actions/workflows/build.yml/badge.svg)](https://github.com/hexlet-components/java-spring-blog/actions/workflows/build.yml)
+[![Java CI](https://github.com/hexlet-components/java-javalin-example/actions/workflows/build.yml/badge.svg)](https://github.com/hexlet-components/java-javalin-example/actions/workflows/build.yml)
 
 Demo: https://java-javalin-example.hexlet.app
 
