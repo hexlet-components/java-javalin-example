@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class UsersPage {
-    public String[] users;
+    private String[] users;
 }

@@ -8,5 +8,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class PostPage {
-    public Post post;
+    private Post post;
 }

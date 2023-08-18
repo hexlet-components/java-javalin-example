@@ -10,5 +10,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class PostsPage {
-    public List<Post> posts;
+    private List<Post> posts;
 }

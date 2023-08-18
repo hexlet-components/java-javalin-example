@@ -1,6 +1,5 @@
 package org.example.hexlet;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,8 +27,6 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
-        // JavalinJte.init();
-
         var app = Javalin.create(config -> {
             config.plugins.enableDevLogging();
         });
@@ -86,7 +83,7 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.usersPath(), ctx -> {
-            var users = new String[] {"ivan", "peter"};
+            var users = new String[] { "ivan", "peter" };
             var page = new UsersPage(users);
             // Отдаем обратно url + query params
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
@@ -98,14 +95,16 @@ public class HelloWorld {
 
         app.get(NamedRoutes.coursesPath(), ctx -> {
             var term = ctx.queryParam("term");
+            // ctx.sessionAttribute("key", "value");
             List<Course> courses;
             if (term != null) {
                 // Фильтруем курсы в соответствии со значением term
-                courses = new ArrayList<Course>();
+                courses = CourseRepository.search(term);
             } else {
                 courses = CourseRepository.getEntities();
             }
             var page = new CoursesPage(courses, term);
+            page.setFlash(ctx.consumeSessionAttribute("flash"));
 
             ctx.render("courses/index.jte", Collections.singletonMap("page", page));
         });
@@ -116,6 +115,7 @@ public class HelloWorld {
 
             var course = new Course(name, description);
             CourseRepository.save(course);
+            ctx.sessionAttribute("flash", "Course has been created!");
             ctx.redirect(NamedRoutes.coursesPath());
         });
 

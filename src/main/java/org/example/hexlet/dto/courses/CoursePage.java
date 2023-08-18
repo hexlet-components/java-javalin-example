@@ -8,5 +8,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class CoursePage {
-    public Course course;
+    private Course course;
 }

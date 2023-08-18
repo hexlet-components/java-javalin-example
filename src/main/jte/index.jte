@@ -3,13 +3,13 @@
 
 @template.layout.page(
     content = @`
-        <h1 class="text-body-emphasis">Привет Хекслет!</h1>
+        <h1 class="text-body-emphasis">Hi Hexlet!</h1>
         <p>Javalin + jte</p>
         @if(!page.isVisited())
-          Это сообщение показывается только один раз. Если вы хотите увидеть его снова, сотрите куки
+            This message is showed just once. To see it again, remove cookies
         @endif
         @if(page.getCurrentUser() != null)
-          Добро пожаловать, ${page.currentUser}. Чтобы разлогиниться, удалите куку JSESSIONID из браузера
+          Welcome, ${page.currentUser}. if you want to sign out remove cookie called JSESSIONID 
         @endif
     `
 )
