@@ -3,6 +3,7 @@ plugins {
     id("checkstyle")
     id("io.freefair.lombok") version "8.1.0"
     id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 application {
@@ -29,12 +30,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-tasks.jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    manifest {
-        attributes["Main-Class"] = "org.example.hexlet.HelloWorld"
-    }
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
