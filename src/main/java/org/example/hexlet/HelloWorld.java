@@ -21,7 +21,9 @@ import com.zaxxer.hikari.HikariDataSource;
 import io.javalin.Javalin;
 // import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class HelloWorld {
 
     private static int getPort() {
