@@ -15,6 +15,9 @@ import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import io.javalin.Javalin;
 // import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
@@ -27,9 +30,23 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
+        var app = getApp();
+
+        app.start(getPort());
+    }
+
+    public static Javalin getApp() {
+        var hikariConfig = new HikariConfig();
+        hikariConfig.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+        hikariConfig.setUsername("sa");
+        hikariConfig.setPassword("");
+
+        var dataSource = new HikariDataSource(hikariConfig);
+
         var app = Javalin.create(config -> {
             config.plugins.enableDevLogging();
         });
+        app.attribute("dataSource", dataSource);
 
         app.before(ctx -> {
             ctx.contentType("text/html; charset=utf-8");
@@ -41,7 +58,7 @@ public class HelloWorld {
 
         app.get("/posts", PostsController::index);
         app.get("/posts/{id}", PostsController::show);
-        app.get("/posts/new", PostsController::build);
+        app.get("/posts/build", PostsController::build);
         app.post("/posts", PostsController::create);
         app.get("/posts/{id}/edit", PostsController::edit);
         app.patch("/posts/{id}", PostsController::update);
@@ -118,7 +135,6 @@ public class HelloWorld {
             ctx.sessionAttribute("flash", "Course has been created!");
             ctx.redirect(NamedRoutes.coursesPath());
         });
-
-        app.start(getPort());
+        return app;
     }
 }

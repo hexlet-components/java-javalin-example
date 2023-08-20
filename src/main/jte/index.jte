@@ -9,7 +9,7 @@
             This message is showed just once. To see it again, remove cookies
         @endif
         @if(page.getCurrentUser() != null)
-          Welcome, ${page.currentUser}. if you want to sign out remove cookie called JSESSIONID 
+          Welcome, ${page.getCurrentUser()}. if you want to sign out remove cookie called JSESSIONID 
         @endif
     `
 )
