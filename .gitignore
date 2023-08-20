@@ -8,3 +8,4 @@ build
 jte-classes
 *.settings
 .factorypath
+bin

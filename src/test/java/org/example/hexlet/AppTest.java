@@ -2,9 +2,10 @@ package org.example.hexlet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.sql.SQLException;
 
-import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.javalin.Javalin;
@@ -12,7 +13,12 @@ import io.javalin.testtools.JavalinTest;
 
 public class AppTest {
 
-    Javalin app = HelloWorld.getApp();
+    Javalin app;
+
+    @BeforeEach
+    public void setUp() throws IOException, SQLException {
+        app = HelloWorld.getApp();
+    }
 
     @Test
     public void testMainPage() {

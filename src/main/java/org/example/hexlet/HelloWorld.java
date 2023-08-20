@@ -1,14 +1,19 @@
 package org.example.hexlet;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.dto.UsersPage;
 import org.example.hexlet.dto.courses.CoursesPage;
-import org.example.hexlet.dto.users.NewUserPage;
+import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.CourseRepository;
@@ -19,7 +24,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import io.javalin.Javalin;
-// import io.javalin.rendering.template.JavalinJte;
 import io.javalin.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,19 +35,32 @@ public class HelloWorld {
         return Integer.valueOf(port);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
         var app = getApp();
 
         app.start(getPort());
     }
 
-    public static Javalin getApp() {
+    public static Javalin getApp() throws IOException, SQLException {
+        // System.setProperty("h2.traceLevel", "TRACE_LEVEL_SYSTEM_OUT=4");
+
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+        hikariConfig.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
         hikariConfig.setUsername("sa");
         hikariConfig.setPassword("");
 
         var dataSource = new HikariDataSource(hikariConfig);
+
+        var url = HelloWorld.class.getClassLoader().getResource("init.sql");
+        var file = new File(url.getFile());
+        var sql = Files.lines(file.toPath())
+                .collect(Collectors.joining(" "));
+
+        // log.info(sql);
+        try (var connection = dataSource.getConnection();
+                var statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
 
         var app = Javalin.create(config -> {
             config.plugins.enableDevLogging();
@@ -74,7 +91,7 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.buildUserPath(), ctx -> {
-            var page = new NewUserPage();
+            var page = new BuildUserPage();
             ctx.render("users/build.jte", Collections.singletonMap("page", page));
         });
 
@@ -96,7 +113,7 @@ public class HelloWorld {
                 UserRepository.save(user);
                 ctx.redirect(NamedRoutes.usersPath());
             } catch (ValidationException e) {
-                var page = new NewUserPage(name, email, e.getErrors());
+                var page = new BuildUserPage(name, email, e.getErrors());
                 ctx.render("users/build.jte", Collections.singletonMap("page", page));
             }
         });

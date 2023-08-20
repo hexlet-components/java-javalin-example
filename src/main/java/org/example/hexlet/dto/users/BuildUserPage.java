@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class NewUserPage {
+public class BuildUserPage {
     public String name;
     public String email;
     public Map<String, List<ValidationError<Object>>> errors;
