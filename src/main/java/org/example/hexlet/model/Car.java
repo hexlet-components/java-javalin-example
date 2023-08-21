@@ -9,14 +9,16 @@ import lombok.ToString;
 @ToString
 public final class Car {
     private Long id;
+    private String make;
+    private String model;
 
-    @ToString.Include
-    private String name;
-    private String description;
+    public Car(String make, String model) {
+        this.make = make;
+        this.model = model;
+    }
 
-    public Car(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public String getName() {
+        return make + " " + model;
     }
 }
 

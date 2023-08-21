@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.example.hexlet.model.Car;
+import org.example.hexlet.repository.CarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -75,6 +77,32 @@ public class AppTest {
     public void testPostsPage() {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get("/posts");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testCarsPage() {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/cars");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testBuildCarPage() {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/cars/build");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testCarPage() throws SQLException {
+        var car = new Car("honda", "accord");
+        CarRepository.save(car);
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/cars/" + car.getId());
             assertThat(response.code()).isEqualTo(200);
         });
     }

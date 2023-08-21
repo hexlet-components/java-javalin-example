@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.example.hexlet.controller.PostsController;
+import org.example.hexlet.controller.CarController;
+import org.example.hexlet.controller.PostController;
 import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.dto.UsersPage;
@@ -16,6 +17,8 @@ import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
+import org.example.hexlet.repository.BaseRepository;
+import org.example.hexlet.repository.CarRepository;
 import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
@@ -50,23 +53,21 @@ public class HelloWorld {
         hikariConfig.setPassword("");
 
         var dataSource = new HikariDataSource(hikariConfig);
-
         var url = HelloWorld.class.getClassLoader().getResource("init.sql");
         var file = new File(url.getFile());
         var sql = Files.lines(file.toPath())
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining("\n"));
 
-        // log.info(sql);
+        log.info(sql);
         try (var connection = dataSource.getConnection();
                 var statement = connection.createStatement()) {
             statement.execute(sql);
         }
+        BaseRepository.dataSource = dataSource;
 
         var app = Javalin.create(config -> {
             config.plugins.enableDevLogging();
         });
-        app.attribute("dataSource", dataSource);
-
         app.before(ctx -> {
             ctx.contentType("text/html; charset=utf-8");
         });
@@ -75,13 +76,18 @@ public class HelloWorld {
         app.post("/sessions", SessionsController::create);
         app.delete("/sessions", SessionsController::destroy);
 
-        app.get("/posts", PostsController::index);
-        app.get("/posts/{id}", PostsController::show);
-        app.get("/posts/build", PostsController::build);
-        app.post("/posts", PostsController::create);
-        app.get("/posts/{id}/edit", PostsController::edit);
-        app.patch("/posts/{id}", PostsController::update);
-        app.delete("/posts", PostsController::destroy);
+        app.get("/posts", PostController::index);
+        app.get("/posts/{id}", PostController::show);
+        app.get("/posts/build", PostController::build);
+        app.post("/posts", PostController::create);
+        app.get("/posts/{id}/edit", PostController::edit);
+        app.patch("/posts/{id}", PostController::update);
+        app.delete("/posts", PostController::destroy);
+
+        app.get("/cars", CarController::index);
+        app.get("/cars/build", CarController::build);
+        app.get("/cars/{id}", CarController::show);
+        app.post("/cars", CarController::create);
 
         app.get("/", ctx -> {
             var visited = Boolean.valueOf(ctx.cookie("visited"));

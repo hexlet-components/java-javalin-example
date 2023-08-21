@@ -10,10 +10,7 @@ import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 
-/**
- * PostsController.
- */
-public class PostsController {
+public class PostController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);
@@ -46,7 +43,6 @@ public class PostsController {
         var page = new PostPage(post);
         ctx.render("posts/edit.jte", Collections.singletonMap("page", page));
     }
-
 
     public static void update(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();

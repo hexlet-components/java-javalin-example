@@ -16,6 +16,7 @@
             <a href="${NamedRoutes.buildSessionPath()}">Sign in</a>
             <a href="${NamedRoutes.usersPath()}">Users</a>
             <a href="${NamedRoutes.coursesPath()}">Courses</a>
+            <a href="${NamedRoutes.carsPath()}">Cars</a>
         </p>
         @if(page != null && page.getFlash() != null)
             <p>${page.getFlash()}</p>
