@@ -18,7 +18,6 @@ import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.BaseRepository;
-import org.example.hexlet.repository.CarRepository;
 import org.example.hexlet.repository.CourseRepository;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
@@ -125,7 +124,7 @@ public class HelloWorld {
         });
 
         app.get(NamedRoutes.usersPath(), ctx -> {
-            var users = new String[] { "ivan", "peter" };
+            var users = new String[] {"ivan", "peter"};
             var page = new UsersPage(users);
             // Отдаем обратно url + query params
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
