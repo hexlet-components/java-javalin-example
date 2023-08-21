@@ -22,7 +22,7 @@ public class CarController {
     public static void show(Context ctx) throws NotFoundResponse, SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var car = CarRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Car with id = " + id + " not found"));
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new CarPage(car);
         ctx.render("cars/show.jte", Collections.singletonMap("page", page));
     }

@@ -9,6 +9,7 @@ import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 
 /**
  * UsersController.
@@ -22,7 +23,8 @@ public class UsersController {
 
     public static void show(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var user = UserRepository.find(id);
+        var user = UserRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new UserPage(user);
         ctx.render("users/show.jte", Collections.singletonMap("page", page));
     }
@@ -43,11 +45,11 @@ public class UsersController {
 
     public static void edit(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var user = UserRepository.find(id);
+        var user = UserRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new UserPage(user);
         ctx.render("users/edit.jte", Collections.singletonMap("page", page));
     }
-
 
     public static void update(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
@@ -56,7 +58,8 @@ public class UsersController {
         var email = ctx.formParam("email");
         var password = ctx.formParam("password");
 
-        var user = UserRepository.find(id);
+        var user = UserRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);

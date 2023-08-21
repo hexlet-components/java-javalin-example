@@ -2,6 +2,7 @@ package org.example.hexlet.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.example.hexlet.model.Course;
 
@@ -20,12 +21,12 @@ public class CourseRepository {
         return courses;
     }
 
-    public static Course find(Long id) {
+    public static Optional<Course> find(Long id) {
         var course = entities.stream()
                 .filter(entity -> entity.getId() == id)
                 .findAny()
                 .orElse(null);
-        return course;
+        return Optional.of(course);
     }
 
     public static List<Course> getEntities() {

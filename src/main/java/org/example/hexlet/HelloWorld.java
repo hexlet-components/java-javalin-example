@@ -47,12 +47,10 @@ public class HelloWorld {
         // System.setProperty("h2.traceLevel", "TRACE_LEVEL_SYSTEM_OUT=4");
 
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;");
-        hikariConfig.setUsername("sa");
-        hikariConfig.setPassword("");
+        hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
         var dataSource = new HikariDataSource(hikariConfig);
-        var url = HelloWorld.class.getClassLoader().getResource("init.sql");
+        var url = HelloWorld.class.getClassLoader().getResource("schema.sql");
         var file = new File(url.getFile());
         var sql = Files.lines(file.toPath())
                 .collect(Collectors.joining("\n"));
@@ -67,6 +65,7 @@ public class HelloWorld {
         var app = Javalin.create(config -> {
             config.plugins.enableDevLogging();
         });
+
         app.before(ctx -> {
             ctx.contentType("text/html; charset=utf-8");
         });

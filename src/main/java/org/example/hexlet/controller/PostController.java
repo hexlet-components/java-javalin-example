@@ -9,6 +9,7 @@ import org.example.hexlet.repository.PostRepository;
 import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 
 public class PostController {
     public static void index(Context ctx) {
@@ -19,7 +20,8 @@ public class PostController {
 
     public static void show(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var post = PostRepository.find(id);
+        var post = PostRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new PostPage(post);
         ctx.render("posts/show.jte", Collections.singletonMap("page", page));
     }
@@ -39,7 +41,8 @@ public class PostController {
 
     public static void edit(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var post = PostRepository.find(id);
+        var post = PostRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new PostPage(post);
         ctx.render("posts/edit.jte", Collections.singletonMap("page", page));
     }
@@ -50,7 +53,8 @@ public class PostController {
         var title = ctx.formParam("title");
         var body = ctx.formParam("body");
 
-        var post = PostRepository.find(id);
+        var post = PostRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         post.setTitle(title);
         post.setBody(body);
         PostRepository.save(post);
