@@ -20,7 +20,7 @@ public class CarRepository extends BaseRepository {
             if (generatedKeys.next()) {
                 car.setId(generatedKeys.getLong(1));
             } else {
-                throw new SQLException();
+                throw new SQLException("DB have not returned an id after saving an entity");
             }
         }
     }

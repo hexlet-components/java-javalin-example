@@ -19,7 +19,7 @@ public class CarController {
         ctx.render("cars/index.jte", Collections.singletonMap("page", page));
     }
 
-    public static void show(Context ctx) throws NotFoundResponse, SQLException {
+    public static void show(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var car = CarRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
