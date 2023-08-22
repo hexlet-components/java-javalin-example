@@ -10,7 +10,7 @@ import org.example.hexlet.model.Car;
 
 public class CarRepository extends BaseRepository {
     public static void save(Car car) throws SQLException {
-        String sql = "INSERT INTO cars (make, model) VALUES (?, ?)";
+        var sql = "INSERT INTO cars (make, model) VALUES (?, ?)";
         try (var conn = dataSource.getConnection();
                 var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getMake());
