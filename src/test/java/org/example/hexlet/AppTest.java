@@ -18,7 +18,7 @@ public class AppTest {
     Javalin app;
 
     @BeforeEach
-    public void setUp() throws IOException, SQLException {
+    public final void setUp() throws IOException, SQLException {
         app = HelloWorld.getApp();
     }
 
