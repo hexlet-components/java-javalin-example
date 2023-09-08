@@ -106,4 +106,20 @@ public class AppTest {
             assertThat(response.code()).isEqualTo(200);
         });
     }
+
+    @Test
+    void testCarNotFound() throws Exception {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/cars/999999");
+            assertThat(response.code()).isEqualTo(404);
+        });
+    }
+
+    @Test
+    void testUserNotFound() throws Exception {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/users/999999");
+            assertThat(response.code()).isEqualTo(404);
+        });
+    }
 }
