@@ -22,11 +22,10 @@ public class UserRepository {
     }
 
     public static Optional<User> find(Long id) {
-        var user = entities.stream()
+        var maybeUser = entities.stream()
                 .filter(entity -> entity.getId() == id)
-                .findAny()
-                .orElse(null);
-        return Optional.of(user);
+                .findAny();
+        return maybeUser;
     }
 
     public static void delete(Long id) {

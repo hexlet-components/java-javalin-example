@@ -8,9 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.example.hexlet.controller.CarController;
-import org.example.hexlet.controller.PostController;
+import org.example.hexlet.controller.CarsController;
+import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
+import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.dto.UsersPage;
 import org.example.hexlet.dto.courses.CoursesPage;
@@ -26,6 +27,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import io.javalin.Javalin;
+import io.javalin.http.NotFoundResponse;
 import io.javalin.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,18 +76,20 @@ public class HelloWorld {
         app.post("/sessions", SessionsController::create);
         app.delete("/sessions", SessionsController::destroy);
 
-        app.get("/posts", PostController::index);
-        app.get("/posts/{id}", PostController::show);
-        app.get("/posts/build", PostController::build);
-        app.post("/posts", PostController::create);
-        app.get("/posts/{id}/edit", PostController::edit);
-        app.patch("/posts/{id}", PostController::update);
-        app.delete("/posts", PostController::destroy);
+        app.get("/posts", PostsController::index);
+        app.get("/posts/{id}", PostsController::show);
+        app.get("/posts/build", PostsController::build);
+        app.post("/posts", PostsController::create);
+        app.get("/posts/{id}/edit", PostsController::edit);
+        app.patch("/posts/{id}", PostsController::update);
+        app.delete("/posts", PostsController::destroy);
 
-        app.get("/cars", CarController::index);
-        app.get("/cars/build", CarController::build);
-        app.get("/cars/{id}", CarController::show);
-        app.post("/cars", CarController::create);
+        app.get("/users/{id}", UsersController::show);
+
+        app.get("/cars", CarsController::index);
+        app.get("/cars/build", CarsController::build);
+        app.get("/cars/{id}", CarsController::show);
+        app.post("/cars", CarsController::create);
 
         app.get("/", ctx -> {
             var visited = Boolean.valueOf(ctx.cookie("visited"));
@@ -99,9 +103,9 @@ public class HelloWorld {
             ctx.render("users/build.jte", Collections.singletonMap("page", page));
         });
 
-        app.get(NamedRoutes.userPath("{id}"), ctx -> {
-            ctx.render("users/show.jte");
-        });
+        // app.get(NamedRoutes.userPath("{id}"), ctx -> {
+        //     ctx.render("users/show.jte");
+        // });
 
         app.post(NamedRoutes.usersPath(), ctx -> {
             var name = ctx.formParam("name").trim();

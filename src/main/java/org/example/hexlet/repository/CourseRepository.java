@@ -22,11 +22,10 @@ public class CourseRepository {
     }
 
     public static Optional<Course> find(Long id) {
-        var course = entities.stream()
+        var maybeCourse = entities.stream()
                 .filter(entity -> entity.getId() == id)
-                .findAny()
-                .orElse(null);
-        return Optional.of(course);
+                .findAny();
+        return maybeCourse;
     }
 
     public static List<Course> getEntities() {

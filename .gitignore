@@ -9,3 +9,4 @@ jte-classes
 *.settings
 .factorypath
 bin
+.classpath

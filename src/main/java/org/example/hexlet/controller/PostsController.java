@@ -11,7 +11,7 @@ import org.example.hexlet.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
-public class PostController {
+public class PostsController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);

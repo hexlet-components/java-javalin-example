@@ -24,9 +24,8 @@ public class PostRepository {
     public static Optional<Post> find(Long id) {
         var post = entities.stream()
                 .filter(entity -> entity.getId() == id)
-                .findAny()
-                .orElse(null);
-        return Optional.of(post);
+                .findAny();
+        return post;
     }
 
     public static List<Post> getEntities() {

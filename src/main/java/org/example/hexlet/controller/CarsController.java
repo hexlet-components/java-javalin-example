@@ -12,7 +12,7 @@ import org.example.hexlet.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
-public class CarController {
+public class CarsController {
     public static void index(Context ctx) throws SQLException {
         var cars = CarRepository.getEntities();
         var page = new CarsPage(cars);
