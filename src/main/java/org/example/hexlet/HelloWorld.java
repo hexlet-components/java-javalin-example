@@ -1,12 +1,11 @@
 package org.example.hexlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.example.hexlet.controller.CarsController;
 import org.example.hexlet.controller.PostsController;
@@ -38,6 +37,12 @@ public class HelloWorld {
         return Integer.valueOf(port);
     }
 
+    private static String readResourceFile(String fileName) throws IOException {
+        var path = Paths.get("src", "main", "resources", fileName);
+        return Files.readString(path);
+    }
+
+
     public static void main(String[] args) throws IOException, SQLException {
         var app = getApp();
 
@@ -51,10 +56,7 @@ public class HelloWorld {
         hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
         var dataSource = new HikariDataSource(hikariConfig);
-        var url = HelloWorld.class.getClassLoader().getResource("schema.sql");
-        var file = new File(url.getFile());
-        var sql = Files.lines(file.toPath())
-                .collect(Collectors.joining("\n"));
+        var sql = readResourceFile("schema.sql");
 
         log.info(sql);
         try (var connection = dataSource.getConnection();

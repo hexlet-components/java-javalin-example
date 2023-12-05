@@ -16,7 +16,7 @@ build:
 start: dev
 
 install:
-	./gradlew install
+	./gradlew installDist
 
 lint:
 	./gradlew checkstyleMain
