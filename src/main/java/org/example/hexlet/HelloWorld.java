@@ -1,11 +1,13 @@
 package org.example.hexlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.example.hexlet.controller.CarsController;
 import org.example.hexlet.controller.PostsController;
@@ -38,10 +40,11 @@ public class HelloWorld {
     }
 
     private static String readResourceFile(String fileName) throws IOException {
-        var path = Paths.get("src", "main", "resources", fileName);
-        return Files.readString(path);
+        var inputStream = HelloWorld.class.getClassLoader().getResourceAsStream(fileName);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            return reader.lines().collect(Collectors.joining("\n"));
+        }
     }
-
 
     public static void main(String[] args) throws IOException, SQLException {
         var app = getApp();
