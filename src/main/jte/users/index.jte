@@ -6,7 +6,9 @@
     content = @`
         <a href="${NamedRoutes.buildUserPath()}">New User</a>
         @for(var user : page.getUsers())
-            <div>${user.getName()}</div>
+            <div>
+                <a href="${NamedRoutes.userPath(user.getId())}">${user.getName()}</a>
+            </div>
         @endfor
     `
 )

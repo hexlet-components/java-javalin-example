@@ -15,6 +15,7 @@ import static io.javalin.rendering.template.TemplateUtil.model;
 import org.example.hexlet.controller.CarsController;
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
+import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.BuildUserPage;
@@ -108,9 +109,7 @@ public class HelloWorld {
             ctx.render("users/build.jte", model("page", page));
         });
 
-        app.get(NamedRoutes.userPath("{id}"), ctx -> {
-            ctx.render("users/show.jte");
-        });
+        app.get("/users/{id}", UsersController::show);
 
         app.post(NamedRoutes.usersPath(), ctx -> {
             var name = ctx.formParam("name").trim();
