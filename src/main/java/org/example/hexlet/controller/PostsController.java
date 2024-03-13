@@ -1,7 +1,5 @@
 package org.example.hexlet.controller;
 
-import java.util.Collections;
-
 import org.example.hexlet.dto.posts.PostPage;
 import org.example.hexlet.dto.posts.PostsPage;
 import org.example.hexlet.model.Post;
@@ -10,12 +8,13 @@ import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class PostsController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);
-        ctx.render("posts/index.jte", Collections.singletonMap("page", page));
+        ctx.render("posts/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) {
@@ -23,7 +22,7 @@ public class PostsController {
         var post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new PostPage(post);
-        ctx.render("posts/show.jte", Collections.singletonMap("page", page));
+        ctx.render("posts/show.jte", model("page", page));
     }
 
     public static void build(Context ctx) {
@@ -44,7 +43,7 @@ public class PostsController {
         var post = PostRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new PostPage(post);
-        ctx.render("posts/edit.jte", Collections.singletonMap("page", page));
+        ctx.render("posts/edit.jte", model("page", page));
     }
 
     public static void update(Context ctx) {

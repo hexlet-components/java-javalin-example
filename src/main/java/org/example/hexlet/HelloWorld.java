@@ -5,18 +5,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.javalin.rendering.template.JavalinJte;
+
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 import org.example.hexlet.controller.CarsController;
 import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
-import org.example.hexlet.dto.UsersPage;
 import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.dto.users.BuildUserPage;
+import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.BaseRepository;
@@ -63,13 +66,14 @@ public class HelloWorld {
 
         log.info(sql);
         try (var connection = dataSource.getConnection();
-                var statement = connection.createStatement()) {
+             var statement = connection.createStatement()) {
             statement.execute(sql);
         }
         BaseRepository.dataSource = dataSource;
 
         var app = Javalin.create(config -> {
-            config.plugins.enableDevLogging();
+            config.bundledPlugins.enableDevLogging();
+            config.fileRenderer(new JavalinJte());
         });
 
         app.before(ctx -> {
@@ -88,8 +92,6 @@ public class HelloWorld {
         app.patch("/posts/{id}", PostsController::update);
         app.delete("/posts", PostsController::destroy);
 
-        app.get("/users/{id}", UsersController::show);
-
         app.get("/cars", CarsController::index);
         app.get("/cars/build", CarsController::build);
         app.get("/cars/{id}", CarsController::show);
@@ -98,18 +100,16 @@ public class HelloWorld {
         app.get("/", ctx -> {
             var visited = Boolean.valueOf(ctx.cookie("visited"));
             var page = new MainPage(visited, ctx.sessionAttribute("currentUser"));
-            ctx.render("index.jte", Collections.singletonMap("page", page));
+            ctx.render("index.jte", model("page", page));
             ctx.cookie("visited", String.valueOf(true));
         });
 
         app.get(NamedRoutes.buildUserPath(), ctx -> {
             var page = new BuildUserPage();
-            ctx.render("users/build.jte", Collections.singletonMap("page", page));
+            ctx.render("users/build.jte", model("page", page));
         });
 
-        // app.get(NamedRoutes.userPath("{id}"), ctx -> {
-        //     ctx.render("users/show.jte");
-        // });
+        app.get("/users/{id}", UsersController::show);
 
         app.post(NamedRoutes.usersPath(), ctx -> {
             var name = ctx.formParam("name").trim();
@@ -126,15 +126,15 @@ public class HelloWorld {
                 ctx.redirect(NamedRoutes.usersPath());
             } catch (ValidationException e) {
                 var page = new BuildUserPage(name, email, e.getErrors());
-                ctx.render("users/build.jte", Collections.singletonMap("page", page));
+                ctx.render("users/build.jte", model("page", page));
             }
         });
 
         app.get(NamedRoutes.usersPath(), ctx -> {
-            var users = new String[] {"ivan", "peter"};
+            var users = UserRepository.getEntities();
             var page = new UsersPage(users);
             // Отдаем обратно url + query params
-            ctx.render("users/index.jte", Collections.singletonMap("page", page));
+            ctx.render("users/index.jte", model("page", page));
         });
 
         app.get(NamedRoutes.buildCoursePath(), ctx -> {
@@ -154,7 +154,7 @@ public class HelloWorld {
             var page = new CoursesPage(courses, term);
             page.setFlash(ctx.consumeSessionAttribute("flash"));
 
-            ctx.render("courses/index.jte", Collections.singletonMap("page", page));
+            ctx.render("courses/index.jte", model("page", page));
         });
 
         app.post(NamedRoutes.coursesPath(), ctx -> {

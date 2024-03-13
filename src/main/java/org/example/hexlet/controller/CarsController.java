@@ -1,7 +1,6 @@
 package org.example.hexlet.controller;
 
 import java.sql.SQLException;
-import java.util.Collections;
 
 import org.example.hexlet.dto.cars.CarPage;
 import org.example.hexlet.dto.cars.CarsPage;
@@ -11,12 +10,13 @@ import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class CarsController {
     public static void index(Context ctx) throws SQLException {
         var cars = CarRepository.getEntities();
         var page = new CarsPage(cars);
-        ctx.render("cars/index.jte", Collections.singletonMap("page", page));
+        ctx.render("cars/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) throws SQLException {
@@ -24,7 +24,7 @@ public class CarsController {
         var car = CarRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new CarPage(car);
-        ctx.render("cars/show.jte", Collections.singletonMap("page", page));
+        ctx.render("cars/show.jte", model("page", page));
     }
 
     public static void build(Context ctx) {
