@@ -1,7 +1,5 @@
 package org.example.hexlet.controller;
 
-import java.util.Collections;
-
 import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.User;
@@ -10,6 +8,7 @@ import org.example.hexlet.util.NamedRoutes;
 
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import static io.javalin.rendering.template.TemplateUtil.model;
 
 /**
  * UsersController.
@@ -18,7 +17,7 @@ public class UsersController {
     public static void index(Context ctx) {
         var users = UserRepository.getEntities();
         var page = new UsersPage(users);
-        ctx.render("users/index.jte", Collections.singletonMap("page", page));
+        ctx.render("users/index.jte", model("page", page));
     }
 
     public static void show(Context ctx) {
@@ -26,7 +25,7 @@ public class UsersController {
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new UserPage(user);
-        ctx.render("users/show.jte", Collections.singletonMap("page", page));
+        ctx.render("users/show.jte", model("page", page));
     }
 
     public static void build(Context ctx) {
@@ -48,7 +47,7 @@ public class UsersController {
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
         var page = new UserPage(user);
-        ctx.render("users/edit.jte", Collections.singletonMap("page", page));
+        ctx.render("users/edit.jte", model("page", page));
     }
 
     public static void update(Context ctx) {
