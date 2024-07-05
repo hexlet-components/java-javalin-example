@@ -17,7 +17,7 @@ public class CarRepository extends BaseRepository {
                 var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getMake());
             preparedStatement.setString(2, car.getModel());
-            Instant createdAt = Instant.now();
+            var createdAt = Instant.now();
             preparedStatement.setTimestamp(3, Timestamp.from(createdAt));
 
             preparedStatement.executeUpdate();
@@ -41,8 +41,11 @@ public class CarRepository extends BaseRepository {
             if (resultSet.next()) {
                 var make = resultSet.getString("make");
                 var model = resultSet.getString("model");
+                var createdAt = resultSet.getTimestamp("created_at").toInstant();
+
                 var car = new Car(make, model);
                 car.setId(id);
+                car.setCreatedAt(createdAt);
                 return Optional.of(car);
             }
             return Optional.empty();
