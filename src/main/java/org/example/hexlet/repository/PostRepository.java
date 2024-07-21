@@ -1,6 +1,6 @@
 package org.example.hexlet.repository;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ public class PostRepository {
 
     public static void save(Post post) {
         post.setId((long) entities.size() + 1);
-        post.setCreatedAt(Instant.now());
+        post.setCreatedAt(LocalDateTime.now());
         entities.add(post);
     }
 

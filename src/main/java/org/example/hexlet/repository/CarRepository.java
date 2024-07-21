@@ -3,7 +3,7 @@ package org.example.hexlet.repository;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +17,8 @@ public class CarRepository extends BaseRepository {
                 var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getMake());
             preparedStatement.setString(2, car.getModel());
-            var createdAt = Instant.now();
-            preparedStatement.setTimestamp(3, Timestamp.from(createdAt));
+            var createdAt = LocalDateTime.now();
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(createdAt));
 
             preparedStatement.executeUpdate();
             var generatedKeys = preparedStatement.getGeneratedKeys();
@@ -41,7 +41,7 @@ public class CarRepository extends BaseRepository {
             if (resultSet.next()) {
                 var make = resultSet.getString("make");
                 var model = resultSet.getString("model");
-                var createdAt = resultSet.getTimestamp("created_at").toInstant();
+                var createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
                 var car = new Car(make, model);
                 car.setId(id);
@@ -62,7 +62,7 @@ public class CarRepository extends BaseRepository {
                 var id = resultSet.getLong("id");
                 var make = resultSet.getString("make");
                 var model = resultSet.getString("model");
-                var createdAt = resultSet.getTimestamp("created_at").toInstant();
+                var createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
 
                 var car = new Car(make, model);
                 car.setId(id);

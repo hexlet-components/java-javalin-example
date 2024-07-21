@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,7 +13,7 @@ public final class Car {
     private Long id;
     private String make;
     private String model;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     public Car(String make, String model) {
         this.make = make;

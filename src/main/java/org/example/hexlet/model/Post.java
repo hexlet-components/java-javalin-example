@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,7 +17,7 @@ public final class Post {
     private String title;
 
     private String body;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     public Post(String title, String body) {
         this.title = title;
