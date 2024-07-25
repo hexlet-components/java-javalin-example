@@ -1,5 +1,6 @@
 package org.example.hexlet.repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ public class UserRepository {
 
     public static void save(User user) {
         user.setId((long) entities.size() + 1);
+        user.setCreatedAt(LocalDateTime.now());
         entities.add(user);
     }
 

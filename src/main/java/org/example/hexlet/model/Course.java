@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -13,6 +15,7 @@ public final class Course {
     @ToString.Include
     private String name;
     private String description;
+    private LocalDateTime createdAt;
 
     public Course(String name, String description) {
         this.name = name;
