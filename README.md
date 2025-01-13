@@ -6,8 +6,8 @@ Demo: https://java-javalin-example.hexlet.app
 
 ## Requirements
 
-* Java 20
-* Gradle 8.2.1
+* Java 21
+* Gradle > 8.5
 
 ## Usage
 
