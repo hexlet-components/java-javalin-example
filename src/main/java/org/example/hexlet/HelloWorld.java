@@ -18,6 +18,7 @@ import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
 import org.example.hexlet.dto.courses.CoursesPage;
+import org.example.hexlet.dto.courses.CoursePage;
 import org.example.hexlet.dto.users.BuildUserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.Course;
@@ -32,6 +33,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import io.javalin.Javalin;
 import io.javalin.validation.ValidationException;
+import io.javalin.http.NotFoundResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -155,6 +157,14 @@ public class HelloWorld {
             page.setFlash(ctx.consumeSessionAttribute("flash"));
 
             ctx.render("courses/index.jte", model("page", page));
+        });
+
+        app.get(NamedRoutes.coursePath("{id}"), ctx -> {
+            var id = ctx.pathParamAsClass("id", Long.class).get();
+            var course = CourseRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+            var page = new CoursePage(course);
+            ctx.render("courses/show.jte", model("page", page));
         });
 
         app.post(NamedRoutes.coursesPath(), ctx -> {

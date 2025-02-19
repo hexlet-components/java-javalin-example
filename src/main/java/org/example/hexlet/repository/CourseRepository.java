@@ -33,5 +33,9 @@ public class CourseRepository {
     public static List<Course> getEntities() {
         return entities;
     }
+
+    public static void removeAll() {
+        entities = new ArrayList<Course>();
+    }
 }
 

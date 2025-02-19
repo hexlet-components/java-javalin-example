@@ -35,7 +35,11 @@ public class PostRepository {
     }
 
     public static void delete(Long id) {
+        entities.removeIf(post -> post.getId() == id);
+    }
 
+    public static void removeAll() {
+        entities = new ArrayList<Post>();
     }
 }
 

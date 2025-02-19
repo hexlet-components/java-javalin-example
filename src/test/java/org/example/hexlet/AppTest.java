@@ -7,6 +7,12 @@ import java.sql.SQLException;
 
 import org.example.hexlet.model.Car;
 import org.example.hexlet.repository.CarRepository;
+import org.example.hexlet.model.User;
+import org.example.hexlet.repository.UserRepository;
+import org.example.hexlet.model.Post;
+import org.example.hexlet.repository.PostRepository;
+import org.example.hexlet.model.Course;
+import org.example.hexlet.repository.CourseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +21,14 @@ import io.javalin.testtools.JavalinTest;
 
 public class AppTest {
 
-    Javalin app;
+    private Javalin app;
 
     @BeforeEach
     public final void setUp() throws IOException, SQLException {
         app = HelloWorld.getApp();
+        UserRepository.removeAll();
+        PostRepository.removeAll();
+        CourseRepository.removeAll();
     }
 
     @Test
@@ -48,9 +57,55 @@ public class AppTest {
     }
 
     @Test
+    public void testUserPage() {
+        JavalinTest.test(app, (server, client) -> {
+            var user = new User("John", "john@mail.com", "strong");
+            UserRepository.save(user);
+            var response = client.get("/users/" +user.getId());
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    void testUserNotFound() throws Exception {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/users/999999");
+            assertThat(response.code()).isEqualTo(404);
+        });
+    }
+
+    @Test
+    public void testBuildUser() {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/users/build");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testCreateUser() {
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "name=John&email=john@mail.com&password=strong";
+            var response = client.post("/users", requestBody);
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body().string()).contains("John");
+        });
+    }
+
+    @Test
     public void testCoursesPage() {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get("/courses");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testCoursePage() {
+        var course = new Course("java", "best java course");
+        CourseRepository.save(course);
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/courses/" + course.getId());
             assertThat(response.code()).isEqualTo(200);
         });
     }
@@ -77,6 +132,16 @@ public class AppTest {
     public void testPostsPage() {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get("/posts");
+            assertThat(response.code()).isEqualTo(200);
+        });
+    }
+
+    @Test
+    public void testPostPage() {
+        var post = new Post("test post", "test body");
+        PostRepository.save(post);
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get("/posts/" + post.getId());
             assertThat(response.code()).isEqualTo(200);
         });
     }
@@ -111,14 +176,6 @@ public class AppTest {
     void testCarNotFound() throws Exception {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get("/cars/999999");
-            assertThat(response.code()).isEqualTo(404);
-        });
-    }
-
-    @Test
-    void testUserNotFound() throws Exception {
-        JavalinTest.test(app, (server, client) -> {
-            var response = client.get("/users/999999");
             assertThat(response.code()).isEqualTo(404);
         });
     }
