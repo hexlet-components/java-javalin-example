@@ -61,7 +61,7 @@ public class AppTest {
         JavalinTest.test(app, (server, client) -> {
             var user = new User("John", "john@mail.com", "strong");
             UserRepository.save(user);
-            var response = client.get("/users/" +user.getId());
+            var response = client.get("/users/" + user.getId());
             assertThat(response.code()).isEqualTo(200);
         });
     }

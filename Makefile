@@ -19,7 +19,7 @@ install:
 	./gradlew installDist
 
 lint:
-	./gradlew checkstyleMain
+	./gradlew checkstyleMain checkstyleTest
 
 test:
 	./gradlew test
