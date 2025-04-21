@@ -5,7 +5,7 @@ dev:
 	./gradlew run
 
 setup:
-	gradle wrapper --gradle-version 8.12
+	gradle wrapper --gradle-version 8.13
 
 clean:
 	./gradlew clean
