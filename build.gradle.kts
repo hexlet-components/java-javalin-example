@@ -32,9 +32,9 @@ dependencies {
     implementation("io.javalin:javalin-rendering:6.6.0")
 
     testImplementation("org.assertj:assertj-core:3.27.3")
-	testImplementation(platform("org.junit:junit-bom:5.12.2"))
-	testImplementation("org.junit.jupiter:junit-jupiter")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
