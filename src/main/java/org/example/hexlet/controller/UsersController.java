@@ -1,18 +1,16 @@
 package org.example.hexlet.controller;
 
+import static io.javalin.rendering.template.TemplateUtil.model;
+
+import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 import org.example.hexlet.dto.users.UserPage;
 import org.example.hexlet.dto.users.UsersPage;
 import org.example.hexlet.model.User;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.util.NamedRoutes;
 
-import io.javalin.http.Context;
-import io.javalin.http.NotFoundResponse;
-import static io.javalin.rendering.template.TemplateUtil.model;
-
-/**
- * UsersController.
- */
+/** UsersController. */
 public class UsersController {
     public static void index(Context ctx) {
         var users = UserRepository.getEntities();
@@ -22,8 +20,12 @@ public class UsersController {
 
     public static void show(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var user = UserRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        var user =
+                UserRepository.find(id)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundResponse(
+                                                "Entity with id = " + id + " not found"));
         var page = new UserPage(user);
         ctx.render("users/show.jte", model("page", page));
     }
@@ -44,8 +46,12 @@ public class UsersController {
 
     public static void edit(Context ctx) {
         var id = ctx.pathParamAsClass("id", Long.class).get();
-        var user = UserRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        var user =
+                UserRepository.find(id)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundResponse(
+                                                "Entity with id = " + id + " not found"));
         var page = new UserPage(user);
         ctx.render("users/edit.jte", model("page", page));
     }
@@ -57,8 +63,12 @@ public class UsersController {
         var email = ctx.formParam("email");
         var password = ctx.formParam("password");
 
-        var user = UserRepository.find(id)
-                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        var user =
+                UserRepository.find(id)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundResponse(
+                                                "Entity with id = " + id + " not found"));
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);

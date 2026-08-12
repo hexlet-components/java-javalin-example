@@ -1,9 +1,8 @@
 package org.example.hexlet.dto.posts;
 
-import org.example.hexlet.model.Post;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.example.hexlet.model.Post;
 
 @AllArgsConstructor
 @Getter

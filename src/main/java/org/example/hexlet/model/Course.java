@@ -1,10 +1,9 @@
 package org.example.hexlet.model;
 
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,8 +11,7 @@ import java.time.LocalDateTime;
 public final class Course {
     private Long id;
 
-    @ToString.Include
-    private String name;
+    @ToString.Include private String name;
     private String description;
     private LocalDateTime createdAt;
 

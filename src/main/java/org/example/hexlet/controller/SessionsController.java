@@ -2,9 +2,7 @@ package org.example.hexlet.controller;
 
 import io.javalin.http.Context;
 
-/**
- * SessionsController.
- */
+/** SessionsController. */
 public class SessionsController {
 
     public static void build(Context ctx) {

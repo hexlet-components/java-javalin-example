@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.example.hexlet.model.Post;
 
 public class PostRepository {
@@ -24,9 +23,7 @@ public class PostRepository {
     // }
 
     public static Optional<Post> find(Long id) {
-        var post = entities.stream()
-                .filter(entity -> entity.getId() == id)
-                .findAny();
+        var post = entities.stream().filter(entity -> entity.getId() == id).findAny();
         return post;
     }
 
@@ -42,5 +39,3 @@ public class PostRepository {
         entities = new ArrayList<Post>();
     }
 }
-
-

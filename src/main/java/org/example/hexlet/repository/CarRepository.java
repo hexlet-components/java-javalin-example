@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.example.hexlet.model.Car;
 
 public class CarRepository extends BaseRepository {
     public static void save(Car car) throws SQLException {
         var sql = "INSERT INTO cars (make, model, created_at) VALUES (?, ?, ?)";
         try (var conn = dataSource.getConnection();
-                var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                var preparedStatement =
+                        conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, car.getMake());
             preparedStatement.setString(2, car.getModel());
             var createdAt = LocalDateTime.now();

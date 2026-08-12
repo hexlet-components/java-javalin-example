@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.example.hexlet.model.Course;
 
 public class CourseRepository {
@@ -17,16 +16,12 @@ public class CourseRepository {
     }
 
     public static List<Course> search(String term) {
-        var courses = entities.stream()
-                .filter(entity -> entity.getName().contains(term))
-                .toList();
+        var courses = entities.stream().filter(entity -> entity.getName().contains(term)).toList();
         return courses;
     }
 
     public static Optional<Course> find(Long id) {
-        var maybeCourse = entities.stream()
-                .filter(entity -> entity.getId() == id)
-                .findAny();
+        var maybeCourse = entities.stream().filter(entity -> entity.getId() == id).findAny();
         return maybeCourse;
     }
 
@@ -38,4 +33,3 @@ public class CourseRepository {
         entities = new ArrayList<Course>();
     }
 }
-
