@@ -3,10 +3,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     application
-    checkstyle
-    id("io.freefair.lombok") version "8.13.1"
-    id("com.github.ben-manes.versions") version "0.52.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.versions)
+    alias(libs.plugins.version.catalog.update)
+    alias(libs.plugins.shadow)
 }
 
 application {
@@ -21,20 +22,20 @@ repositories {
 }
 
 dependencies {
-    implementation("com.h2database:h2:2.3.232")
-    implementation("com.zaxxer:HikariCP:6.3.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
-    implementation("org.apache.commons:commons-text:1.13.1")
-    implementation("gg.jte:jte:3.2.0")
-    implementation("org.slf4j:slf4j-simple:2.0.17")
-    implementation("io.javalin:javalin:6.6.0")
-    implementation("io.javalin:javalin-bundle:6.6.0")
-    implementation("io.javalin:javalin-rendering:6.6.0")
+    implementation(libs.h2)
+    implementation(libs.hikariCp)
+    implementation(libs.jacksonDatabind)
+    implementation(libs.commonsText)
+    implementation(libs.jte)
+    implementation(libs.slf4jSimple)
+    implementation(libs.javalin)
+    implementation(libs.javalinBundle)
+    implementation(libs.javalinRendering)
 
-    testImplementation("org.assertj:assertj-core:3.27.3")
-    testImplementation(platform("org.junit:junit-bom:5.12.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.assertjCore)
+    testImplementation(platform(libs.junitBom))
+    testImplementation(libs.junitJupiter)
+    testRuntimeOnly(libs.junitPlatformLauncher)
 }
 
 tasks.test {
@@ -47,4 +48,22 @@ tasks.test {
         // showCauses = true
         showStandardStreams = true
     }
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        googleJavaFormat().aosp()
+        formatAnnotations()
+        leadingTabsToSpaces(4)
+        endWithNewline()
+    }
+}
+
+// versionCatalogUpdate пишет свежие версии прямо в gradle/libs.versions.toml,
+// поэтому руками их сверять не нужно. Ключи не сортируются: порядок в каталоге
+// смысловой, по группам зависимостей.
+versionCatalogUpdate {
+    sortByKey = false
 }
