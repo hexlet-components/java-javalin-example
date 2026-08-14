@@ -30,7 +30,7 @@ dependencies {
     implementation(libs.slf4jSimple)
     implementation(libs.javalin)
     implementation(libs.javalinBundle)
-    implementation(libs.javalinRendering)
+    implementation(libs.javalinRenderingJte)
 
     testImplementation(libs.assertjCore)
     testImplementation(platform(libs.junitBom))

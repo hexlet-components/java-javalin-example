@@ -4,7 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
+import io.javalin.testtools.TestConfig;
 import java.io.IOException;
+import java.net.http.HttpClient;
 import java.sql.SQLException;
 import org.example.hexlet.model.Car;
 import org.example.hexlet.model.Course;
@@ -18,6 +20,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
+
+    // Клиент javalin-testtools построен на java.net.http.HttpClient, а тот по умолчанию
+    // не идёт по редиректу. Тесты, которые проверяют страницу после редиректа, берут
+    // клиент с включённым переходом
+    private static final TestConfig FOLLOW_REDIRECTS =
+            new TestConfig(
+                    true,
+                    true,
+                    HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build());
 
     private Javalin app;
 
@@ -140,6 +151,7 @@ public class AppTest {
     public void testCreateCourse() {
         JavalinTest.test(
                 app,
+                FOLLOW_REDIRECTS,
                 (server, client) -> {
                     var requestBody = "name=coursename&desdcription=coursedescription";
                     var response = client.post("/courses", requestBody);

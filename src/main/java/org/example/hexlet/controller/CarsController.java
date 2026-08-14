@@ -1,10 +1,9 @@
 package org.example.hexlet.controller;
 
-import static io.javalin.rendering.template.TemplateUtil.model;
-
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import java.sql.SQLException;
+import java.util.Map;
 import org.example.hexlet.dto.cars.CarPage;
 import org.example.hexlet.dto.cars.CarsPage;
 import org.example.hexlet.model.Car;
@@ -15,7 +14,7 @@ public class CarsController {
     public static void index(Context ctx) throws SQLException {
         var cars = CarRepository.getEntities();
         var page = new CarsPage(cars);
-        ctx.render("cars/index.jte", model("page", page));
+        ctx.render("cars/index.jte", Map.of("page", page));
     }
 
     public static void show(Context ctx) throws SQLException {
@@ -27,7 +26,7 @@ public class CarsController {
                                         new NotFoundResponse(
                                                 "Entity with id = " + id + " not found"));
         var page = new CarPage(car);
-        ctx.render("cars/show.jte", model("page", page));
+        ctx.render("cars/show.jte", Map.of("page", page));
     }
 
     public static void build(Context ctx) {

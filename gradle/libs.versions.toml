@@ -17,8 +17,7 @@ jackson = "2.22.1"
 commons-text = "1.15.0"
 jte = "3.2.4"
 slf4j = "2.0.18"
-# Придержано намеренно: javalin 7 меняет API, это правка кода примера, а не бамп.
-javalin = "6.7.0"
+javalin = "7.2.3"
 assertj = "3.27.7"
 junit-bom = "6.1.3"
 
@@ -31,7 +30,7 @@ jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", vers
 # Web
 javalin = { module = "io.javalin:javalin", version.ref = "javalin" }
 javalinBundle = { module = "io.javalin:javalin-bundle", version.ref = "javalin" }
-javalinRendering = { module = "io.javalin:javalin-rendering", version.ref = "javalin" }
+javalinRenderingJte = { module = "io.javalin:javalin-rendering-jte", version.ref = "javalin" }
 jte = { module = "gg.jte:jte", version.ref = "jte" }
 # Utilities
 commonsText = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }

@@ -1,9 +1,8 @@
 package org.example.hexlet.controller;
 
-import static io.javalin.rendering.template.TemplateUtil.model;
-
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import java.util.Map;
 import org.example.hexlet.dto.posts.PostPage;
 import org.example.hexlet.dto.posts.PostsPage;
 import org.example.hexlet.model.Post;
@@ -14,7 +13,7 @@ public class PostsController {
     public static void index(Context ctx) {
         var posts = PostRepository.getEntities();
         var page = new PostsPage(posts);
-        ctx.render("posts/index.jte", model("page", page));
+        ctx.render("posts/index.jte", Map.of("page", page));
     }
 
     public static void show(Context ctx) {
@@ -26,7 +25,7 @@ public class PostsController {
                                         new NotFoundResponse(
                                                 "Entity with id = " + id + " not found"));
         var page = new PostPage(post);
-        ctx.render("posts/show.jte", model("page", page));
+        ctx.render("posts/show.jte", Map.of("page", page));
     }
 
     public static void build(Context ctx) {
@@ -51,7 +50,7 @@ public class PostsController {
                                         new NotFoundResponse(
                                                 "Entity with id = " + id + " not found"));
         var page = new PostPage(post);
-        ctx.render("posts/edit.jte", model("page", page));
+        ctx.render("posts/edit.jte", Map.of("page", page));
     }
 
     public static void update(Context ctx) {
