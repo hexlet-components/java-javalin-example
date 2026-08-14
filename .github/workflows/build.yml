@@ -16,9 +16,7 @@ jobs:
           distribution: 'temurin'
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@v6
-        with:
-          gradle-version: "8.13"
-      - run: ./gradlew checkstyleMain
+      - run: ./gradlew spotlessCheck
       - run: ./gradlew test
 
   deploy:
