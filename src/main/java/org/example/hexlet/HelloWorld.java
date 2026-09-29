@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hexlet.controller.CarsController;
-import org.example.hexlet.controller.PostsController;
 import org.example.hexlet.controller.SessionsController;
 import org.example.hexlet.controller.UsersController;
 import org.example.hexlet.dto.MainPage;
@@ -92,14 +91,6 @@ public class HelloWorld {
                             config.routes.get("/sessions/build", SessionsController::build);
                             config.routes.post("/sessions", SessionsController::create);
                             config.routes.delete("/sessions", SessionsController::destroy);
-
-                            config.routes.get("/posts", PostsController::index);
-                            config.routes.get("/posts/{id}", PostsController::show);
-                            config.routes.get("/posts/build", PostsController::build);
-                            config.routes.post("/posts", PostsController::create);
-                            config.routes.get("/posts/{id}/edit", PostsController::edit);
-                            config.routes.patch("/posts/{id}", PostsController::update);
-                            config.routes.delete("/posts", PostsController::destroy);
 
                             config.routes.get("/cars", CarsController::index);
                             config.routes.get("/cars/build", CarsController::build);

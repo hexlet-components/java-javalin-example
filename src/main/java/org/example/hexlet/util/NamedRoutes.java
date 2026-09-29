@@ -58,8 +58,4 @@ public class NamedRoutes {
     public static String coursePath(String id) {
         return "/courses/" + id;
     }
-
-    public static String postsPath() {
-        return "/posts";
-    }
 }
