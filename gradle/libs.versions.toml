@@ -6,17 +6,17 @@ version-catalog-update = { id = "nl.littlerobots.version-catalog-update", versio
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow-plugin" }
 
 [versions]
-spotless-plugin = "8.10.2"
+spotless-plugin = "8.10.3"
 lombok-plugin = "9.7.0"
-versions-plugin = "0.61.0"
+versions-plugin = "0.64.0"
 catalog-update-plugin = "1.1.1"
 shadow-plugin = "9.6.1"
-h2 = "2.5.250"
+h2 = "2.5.252"
 hikaricp = "7.1.0"
-jackson = "2.22.2"
+jackson = "2.22.3"
 commons-text = "1.15.0"
 jte = "3.2.4"
-slf4j = "2.0.19"
+slf4j = "2.0.20"
 javalin = "7.2.3"
 assertj = "3.27.7"
 junit-bom = "6.1.3"
