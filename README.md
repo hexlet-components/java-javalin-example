@@ -6,7 +6,7 @@ Code from the lessons of the Hexlet course «Java: Веб-технологии»
 
 ## Requirements
 
-- JDK 25
+- JDK 27
 - Gradle 9.7.1 (the wrapper downloads it)
 
 ## Usage
