@@ -3,14 +3,14 @@
 @template.layout.page(
     content = @`
         <form action="${NamedRoutes.coursesPath()}" method="post">
-            <lable>
+            <label>
                 Name
                 <input type="text" name="name">
-            </lable>
-            <lable>
+            </label>
+            <label>
                 Description
                 <input type="text" name="description">
-            </lable>
+            </label>
             <input type="submit">
         </form>
     `
