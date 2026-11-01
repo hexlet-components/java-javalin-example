@@ -17,7 +17,7 @@ jackson = "2.22.4"
 commons-text = "1.15.0"
 jte = "3.2.4"
 slf4j = "2.0.20"
-javalin = "7.2.3"
+javalin = "7.2.4"
 assertj = "3.27.7"
 junit-bom = "6.1.3"
 
